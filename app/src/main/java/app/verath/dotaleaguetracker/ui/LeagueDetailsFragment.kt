@@ -1,4 +1,4 @@
-package app.verath.dotaleaguetracker
+package app.verath.dotaleaguetracker.ui
 
 
 import android.os.Bundle
@@ -6,8 +6,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.Navigation
-import kotlinx.android.synthetic.main.fragment_league_details.view.*
+import app.verath.dotaleaguetracker.R
 
 
 class LeagueDetailsFragment : Fragment() {
@@ -20,8 +19,7 @@ class LeagueDetailsFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_league_details, container, false)
-        return view
+        return inflater.inflate(R.layout.fragment_league_details, container, false)
     }
 
 
