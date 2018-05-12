@@ -1,9 +1,12 @@
 package app.verath.dotaleaguetracker
 
-import android.app.Application
+import dagger.android.AndroidInjector
+import dagger.android.HasActivityInjector
+import dagger.android.support.DaggerApplication
 import timber.log.Timber
 
-class DotaLeagueTrackerApplication : Application() {
+class DotaLeagueTrackerApplication : DaggerApplication(), HasActivityInjector {
+
     override fun onCreate() {
         super.onCreate()
 
@@ -11,5 +14,11 @@ class DotaLeagueTrackerApplication : Application() {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
+    }
+
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+        return DaggerAppComponent.builder()
+                .application(this)
+                .build()
     }
 }

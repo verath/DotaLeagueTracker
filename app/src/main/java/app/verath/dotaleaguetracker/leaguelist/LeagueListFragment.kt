@@ -1,32 +1,30 @@
-package app.verath.dotaleaguetracker.ui
+package app.verath.dotaleaguetracker.leaguelist
 
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import app.verath.dotaleaguetracker.databinding.FragmentLeagueListBinding
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
+class LeagueListFragment : DaggerFragment() {
 
-class LeagueListFragment : Fragment() {
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = LeagueListFragment()
-    }
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var viewModel: LeagueListViewModel
-
     private lateinit var leagueListAdapter: LeagueListAdapter
-    private lateinit var leagueListLayoutManager: RecyclerView.LayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(LeagueListViewModel::class.java)
+
+        viewModel = ViewModelProviders.of(this, viewModelFactory)
+                .get(LeagueListViewModel::class.java)
         leagueListAdapter = LeagueListAdapter()
 
         viewModel.leagues.observe(this, Observer {
@@ -42,7 +40,7 @@ class LeagueListFragment : Fragment() {
         binding.viewModel = viewModel
         binding.setLifecycleOwner(this)
 
-        leagueListLayoutManager = LinearLayoutManager(context)
+        val leagueListLayoutManager = LinearLayoutManager(context)
         binding.leagueList.apply {
             layoutManager = leagueListLayoutManager
             adapter = leagueListAdapter

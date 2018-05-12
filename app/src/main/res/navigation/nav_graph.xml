@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/leagueListFragment"
-        android:name="app.verath.dotaleaguetracker.ui.LeagueListFragment"
+        android:name="app.verath.dotaleaguetracker.leaguelist.LeagueListFragment"
         android:label="fragment_league_list"
         tools:layout="@layout/fragment_league_list" >
     </fragment>

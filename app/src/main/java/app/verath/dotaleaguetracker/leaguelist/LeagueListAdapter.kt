@@ -1,4 +1,4 @@
-package app.verath.dotaleaguetracker.ui
+package app.verath.dotaleaguetracker.leaguelist
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater

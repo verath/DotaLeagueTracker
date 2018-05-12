@@ -20,6 +20,13 @@ allprojects {
         google()
         jcenter()
     }
+
+    // https://github.com/google/dagger/issues/306
+    afterEvaluate {
+        tasks.withType(JavaCompile.class) {
+            options.compilerArgs << "-Xmaxerrs" << "500"
+        }
+    }
 }
 
 task clean(type: Delete) {
