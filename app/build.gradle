@@ -20,15 +20,27 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    dataBinding {
+        enabled true
+    }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // UI
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+
+    // Navigation
     def nav_version = "1.0.0-alpha01"
     implementation "android.arch.navigation:navigation-fragment-ktx:$nav_version"
     implementation "android.arch.navigation:navigation-ui-ktx:$nav_version"
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+
+    // Lifecycle
+    def lifecycle_version = "1.1.1"
+    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
+    kapt "android.arch.lifecycle:compiler:$lifecycle_version"
 
     // Logging
     implementation 'com.jakewharton.timber:timber:4.7.0'

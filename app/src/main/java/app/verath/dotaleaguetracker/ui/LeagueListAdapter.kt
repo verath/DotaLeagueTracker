@@ -2,24 +2,34 @@ package app.verath.dotaleaguetracker.ui
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import app.verath.dotaleaguetracker.R
+import app.verath.dotaleaguetracker.DotaLeague
+import app.verath.dotaleaguetracker.databinding.ItemLeagueBinding
 
 class LeagueListAdapter : RecyclerView.Adapter<LeagueListAdapter.ViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_league, parent, false)
-        return ViewHolder(itemView)
-    }
 
-    override fun getItemCount() = 10
+    private var leagues: List<DotaLeague> = emptyList()
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val itemLeagueBinding = ItemLeagueBinding.inflate(layoutInflater, parent, false)
+        return ViewHolder(itemLeagueBinding)
+    }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val nameTextView = holder.itemView.findViewById<TextView>(R.id.name)
-        nameTextView.text = String.format("Item %d", position)
+        holder.bind(this.leagues[position])
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    override fun getItemCount() = this.leagues.size
+
+    fun setLeagues(leagues: List<DotaLeague>) {
+        this.leagues = leagues
+    }
+
+    class ViewHolder(private val itemLeagueBinding: ItemLeagueBinding) : RecyclerView.ViewHolder(itemLeagueBinding.root) {
+        fun bind(dotaLeague: DotaLeague) {
+            itemLeagueBinding.dotaLeague = dotaLeague
+            itemLeagueBinding.executePendingBindings()
+        }
+    }
 }

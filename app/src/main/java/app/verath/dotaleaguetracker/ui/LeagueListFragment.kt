@@ -1,5 +1,7 @@
 package app.verath.dotaleaguetracker.ui
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -7,8 +9,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import app.verath.dotaleaguetracker.R
-import kotlinx.android.synthetic.main.fragment_league_list.view.*
+import app.verath.dotaleaguetracker.databinding.FragmentLeagueListBinding
 
 
 class LeagueListFragment : Fragment() {
@@ -18,20 +19,35 @@ class LeagueListFragment : Fragment() {
         fun newInstance() = LeagueListFragment()
     }
 
+    private lateinit var viewModel: LeagueListViewModel
+
     private lateinit var leagueListAdapter: LeagueListAdapter
     private lateinit var leagueListLayoutManager: RecyclerView.LayoutManager
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_league_list, container, false)
-        //view.btnToDetails.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_league_details))
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProviders.of(this).get(LeagueListViewModel::class.java)
         leagueListAdapter = LeagueListAdapter()
+
+        viewModel.leagues.observe(this, Observer {
+            it?.run {
+                leagueListAdapter.setLeagues(it)
+                leagueListAdapter.notifyDataSetChanged()
+            }
+        })
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val binding = FragmentLeagueListBinding.inflate(inflater, container, false)
+        binding.viewModel = viewModel
+        binding.setLifecycleOwner(this)
+
         leagueListLayoutManager = LinearLayoutManager(context)
-        view.league_list.apply {
+        binding.leagueList.apply {
             layoutManager = leagueListLayoutManager
             adapter = leagueListAdapter
         }
-        return view
+        return binding.root
     }
 }
 
