@@ -1,5 +1,8 @@
 package app.verath.dotaleaguetracker
 
+import com.google.gson.FieldNamingPolicy
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -37,10 +40,13 @@ interface Dota2Service {
                     .addInterceptor(logger)
                     .addInterceptor(apiKeyAdder)
                     .build()
+            val gson = GsonBuilder()
+                    .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                    .create()
             return Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .client(client)
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(gson))
                     .build()
                     .create(Dota2Service::class.java)
         }
