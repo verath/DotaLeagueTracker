@@ -3,8 +3,8 @@ package app.verath.dotaleaguetracker.leaguelist
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import app.verath.dotaleaguetracker.DotaLeague
 import app.verath.dotaleaguetracker.databinding.ItemLeagueBinding
+import app.verath.dotaleaguetracker.model.DotaLeague
 
 typealias LeagueClickedListener = ((DotaLeague) -> Unit)
 
@@ -12,7 +12,7 @@ class LeagueListAdapter(
         private val onLeagueClickedListener: LeagueClickedListener? = null
 ) : RecyclerView.Adapter<LeagueListViewHolder>() {
 
-    private var leagues: List<DotaLeague> = emptyList()
+    private var leagues: List<DotaLeague>? = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LeagueListViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -21,12 +21,12 @@ class LeagueListAdapter(
     }
 
     override fun onBindViewHolder(holder: LeagueListViewHolder, position: Int) {
-        holder.bind(this.leagues[position])
+        holder.bind(this.leagues!![position])
     }
 
-    override fun getItemCount() = this.leagues.size
+    override fun getItemCount() = this.leagues?.size ?: 0
 
-    fun setLeagues(leagues: List<DotaLeague>) {
+    fun setLeagues(leagues: List<DotaLeague>?) {
         this.leagues = leagues
     }
 

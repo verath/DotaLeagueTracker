@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import app.verath.dotaleaguetracker.databinding.FragmentLeagueListBinding
+import app.verath.dotaleaguetracker.util.autoCleared
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -19,40 +20,32 @@ class LeagueListFragment : DaggerFragment() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var viewModel: LeagueListViewModel
-    private lateinit var leagueListAdapter: LeagueListAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private var binding by autoCleared<FragmentLeagueListBinding>()
 
-        // Create the list adapter
-        leagueListAdapter = LeagueListAdapter({
-            findNavController().navigate(
-                    LeagueListFragmentDirections.showLeagueDetails(it.leagueId))
-        })
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = FragmentLeagueListBinding.inflate(inflater, container, false)
+        binding.setLifecycleOwner(this)
+        return binding.root
+    }
 
-        // Locate ViewModel, using our viewModelFactory for DI
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
         viewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(LeagueListViewModel::class.java)
 
-        // Connect list adapter to ViewModel
-        viewModel.leagues.observe(this, Observer {
-            it?.run {
-                leagueListAdapter.setLeagues(it)
-                leagueListAdapter.notifyDataSetChanged()
-            }
+        val adapter = LeagueListAdapter({
+            findNavController().navigate(
+                    LeagueListFragmentDirections.showLeagueDetails(it.leagueId))
         })
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding = FragmentLeagueListBinding.inflate(inflater, container, false)
-        binding.setLifecycleOwner(this)
-
-        // Connect the RecylerView to the list adapter
-        binding.leagueList.apply {
-            adapter = leagueListAdapter
-            layoutManager = LinearLayoutManager(LeagueListFragment@ context)
-        }
-
-        return binding.root
+        // Connect list adapter to ViewModel
+        viewModel.leagues.observe(this, Observer { leagueListResource ->
+            adapter.setLeagues(leagueListResource?.data)
+            adapter.notifyDataSetChanged()
+        })
+        // Set the list adapter on the list
+        binding.leagueList.adapter = adapter
+        binding.leagueList.layoutManager = LinearLayoutManager(context)
     }
 }

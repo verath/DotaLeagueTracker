@@ -1,7 +1,6 @@
-package app.verath.dotaleaguetracker
+package app.verath.dotaleaguetracker.api
 
 import com.google.gson.FieldNamingPolicy
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -17,9 +16,6 @@ interface Dota2Service {
 
     @GET("/IDOTA2Match_570/GetLeagueListing/v1/?language=en")
     fun listLeagues(): Call<ListLeaguesResponse>
-
-    data class ListLeaguesResponse(val result: ListLeaguesResult)
-    data class ListLeaguesResult(val leagues: List<DotaLeague>)
 
     companion object {
         private const val BASE_URL = "http://api.steampowered.com/"

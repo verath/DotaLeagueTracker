@@ -2,6 +2,7 @@ package app.verath.dotaleaguetracker
 
 import android.app.Application
 import android.arch.lifecycle.ViewModelProvider
+import app.verath.dotaleaguetracker.api.Dota2Service
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

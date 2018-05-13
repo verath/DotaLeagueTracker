@@ -14,21 +14,17 @@
  * limitations under the License.
  */
 
-package app.verath.dotaleaguetracker
+package app.verath.dotaleaguetracker.model
 
-enum class Status {
-    RUNNING,
+/**
+ * Status of a resource that is provided to the UI.
+ *
+ *
+ * These are usually created by the Repository classes where they return
+ * `LiveData<Resource<T>>` to pass back the latest data to the UI with its fetch status.
+ */
+enum class ResourceStatus {
     SUCCESS,
-    FAILED
-}
-
-@Suppress("DataClassPrivateConstructor")
-data class NetworkState private constructor(
-        val status: Status,
-        val msg: String? = null) {
-    companion object {
-        val LOADED = NetworkState(Status.SUCCESS)
-        val LOADING = NetworkState(Status.RUNNING)
-        fun error(msg: String?) = NetworkState(Status.FAILED, msg)
-    }
+    ERROR,
+    LOADING
 }

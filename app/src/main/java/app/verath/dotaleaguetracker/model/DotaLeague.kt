@@ -1,4 +1,4 @@
-package app.verath.dotaleaguetracker
+package app.verath.dotaleaguetracker.model
 
 import com.google.gson.annotations.SerializedName
 
