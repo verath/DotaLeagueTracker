@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import app.verath.dotaleaguetracker.databinding.FragmentLeagueListBinding
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
@@ -23,10 +24,17 @@ class LeagueListFragment : DaggerFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // Create the list adapter
+        leagueListAdapter = LeagueListAdapter({
+            findNavController().navigate(
+                    LeagueListFragmentDirections.showLeagueDetails(it.leagueId))
+        })
+
+        // Locate ViewModel, using our viewModelFactory for DI
         viewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(LeagueListViewModel::class.java)
-        leagueListAdapter = LeagueListAdapter()
 
+        // Connect list adapter to ViewModel
         viewModel.leagues.observe(this, Observer {
             it?.run {
                 leagueListAdapter.setLeagues(it)
@@ -37,15 +45,14 @@ class LeagueListFragment : DaggerFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FragmentLeagueListBinding.inflate(inflater, container, false)
-        binding.viewModel = viewModel
         binding.setLifecycleOwner(this)
 
-        val leagueListLayoutManager = LinearLayoutManager(context)
+        // Connect the RecylerView to the list adapter
         binding.leagueList.apply {
-            layoutManager = leagueListLayoutManager
             adapter = leagueListAdapter
+            layoutManager = LinearLayoutManager(LeagueListFragment@ context)
         }
+
         return binding.root
     }
 }
-

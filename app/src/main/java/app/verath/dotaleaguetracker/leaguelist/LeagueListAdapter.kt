@@ -6,17 +6,21 @@ import android.view.ViewGroup
 import app.verath.dotaleaguetracker.DotaLeague
 import app.verath.dotaleaguetracker.databinding.ItemLeagueBinding
 
-class LeagueListAdapter : RecyclerView.Adapter<LeagueListAdapter.ViewHolder>() {
+typealias LeagueClickedListener = ((DotaLeague) -> Unit)
+
+class LeagueListAdapter(
+        private val onLeagueClickedListener: LeagueClickedListener? = null
+) : RecyclerView.Adapter<LeagueListViewHolder>() {
 
     private var leagues: List<DotaLeague> = emptyList()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LeagueListViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val itemLeagueBinding = ItemLeagueBinding.inflate(layoutInflater, parent, false)
-        return ViewHolder(itemLeagueBinding)
+        return LeagueListViewHolder(itemLeagueBinding, onLeagueClickedListener)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: LeagueListViewHolder, position: Int) {
         holder.bind(this.leagues[position])
     }
 
@@ -26,10 +30,23 @@ class LeagueListAdapter : RecyclerView.Adapter<LeagueListAdapter.ViewHolder>() {
         this.leagues = leagues
     }
 
-    class ViewHolder(private val itemLeagueBinding: ItemLeagueBinding) : RecyclerView.ViewHolder(itemLeagueBinding.root) {
-        fun bind(dotaLeague: DotaLeague) {
-            itemLeagueBinding.dotaLeague = dotaLeague
-            itemLeagueBinding.executePendingBindings()
+}
+
+class LeagueListViewHolder(
+        private val itemLeagueBinding: ItemLeagueBinding,
+        onLeagueClickedListener: LeagueClickedListener?
+) : RecyclerView.ViewHolder(itemLeagueBinding.root) {
+
+    init {
+        itemLeagueBinding.root.setOnClickListener {
+            itemLeagueBinding.dotaLeague?.let {
+                onLeagueClickedListener?.invoke(it)
+            }
         }
+    }
+
+    fun bind(dotaLeague: DotaLeague) {
+        itemLeagueBinding.dotaLeague = dotaLeague
+        itemLeagueBinding.executePendingBindings()
     }
 }
