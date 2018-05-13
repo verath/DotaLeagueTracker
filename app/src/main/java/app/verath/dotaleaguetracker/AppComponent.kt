@@ -2,6 +2,7 @@ package app.verath.dotaleaguetracker
 
 import android.app.Application
 import app.verath.dotaleaguetracker.leaguelist.LeagueListModule
+import app.verath.dotaleaguetracker.leaguedetails.LeagueDetailsModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -14,7 +15,8 @@ import javax.inject.Singleton
         modules = [
             AndroidSupportInjectionModule::class,
             AppModule::class,
-            LeagueListModule::class
+            LeagueListModule::class,
+            LeagueDetailsModule::class
         ]
 )
 interface AppComponent : AndroidInjector<DotaLeagueTrackerApplication> {

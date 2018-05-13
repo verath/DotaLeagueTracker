@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/leagueDetailsFragment"
-        android:name="app.verath.dotaleaguetracker.ui.LeagueDetailsFragment"
+        android:name="app.verath.dotaleaguetracker.leaguedetails.LeagueDetailsFragment"
         android:label="LeagueDetailsFragment"
         tools:layout="@layout/fragment_league_details">
         <argument
