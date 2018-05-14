@@ -5,7 +5,7 @@ import dagger.android.HasActivityInjector
 import dagger.android.support.DaggerApplication
 import timber.log.Timber
 
-class DotaLeagueTrackerApplication : DaggerApplication(), HasActivityInjector {
+class DotaLeagueTrackerApplication : DaggerApplication() {
 
     override fun onCreate() {
         super.onCreate()
