@@ -4,4 +4,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="leage_details_fragment">Details fragment!</string>
+    <string name="league_list_title">Leagues</string>
+    <string name="league_filter_hint">League Name</string>
 </resources>

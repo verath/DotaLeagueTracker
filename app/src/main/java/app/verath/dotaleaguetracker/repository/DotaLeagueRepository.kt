@@ -21,7 +21,7 @@ class DotaLeagueRepository @Inject constructor(
         result.value = Resource.loading(null)
 
         fun loadFromNetwork() {
-            dota2Service.listLeagues().enqueue(ApiResponseCallback {resp ->
+            dota2Service.listLeagues().enqueue(ApiResponseCallback { resp ->
                 val resource = when (resp) {
                     is ApiSuccessResponse -> Resource.success(resp.body.result.leagues)
                     is ApiErrorResponse -> Resource.error(resp.errorMessage, null)

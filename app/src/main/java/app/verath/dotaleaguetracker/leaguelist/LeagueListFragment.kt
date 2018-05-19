@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,5 +48,10 @@ class LeagueListFragment : DaggerFragment() {
         // Set the list adapter on the list
         binding.leagueList.adapter = adapter
         binding.leagueList.layoutManager = LinearLayoutManager(context)
+
+        // Listen for filter input
+        binding.nameFilter.addTextChangedListener(object : SimpleTextWatcher() {
+            override fun afterTextChanged(s: Editable?) = viewModel.setNameFilter(s?.toString().orEmpty())
+        })
     }
 }
