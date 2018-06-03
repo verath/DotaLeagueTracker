@@ -8,38 +8,20 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <EditText
+            android:id="@+id/name_filter"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:elevation="4dp"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:title="@string/league_list_title">
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:layout_editor_absoluteX="16dp">
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/name_filter"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/league_filter_hint" />
-            </android.support.design.widget.TextInputLayout>
-        </android.support.v7.widget.Toolbar>
+            android:layout_height="wrap_content"
+            android:hint="@string/league_filter_hint"
+            android:inputType="textNoSuggestions"
+            android:importantForAutofill="no" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/league_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintTop_toBottomOf="@+id/name_filter"
             tools:listitem="@layout/item_league" />
 
     </android.support.constraint.ConstraintLayout>

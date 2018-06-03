@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/leagueListFragment">
+    android:id="@+id/main"
+    app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/leagueListFragment"
-        android:name="app.verath.dotaleaguetracker.leaguelist.LeagueListFragment"
-        android:label="LeagueListFragment"
-        tools:layout="@layout/fragment_league_list" >
-        <action
-            android:id="@+id/showLeagueDetails"
-            app:destination="@id/leagueDetailsFragment" />
-    </fragment>
+        android:id="@+id/homeFragment"
+        android:name="app.verath.dotaleaguetracker.home.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home" />
+
     <fragment
         android:id="@+id/leagueDetailsFragment"
         android:name="app.verath.dotaleaguetracker.leaguedetails.LeagueDetailsFragment"
@@ -22,4 +20,10 @@
             android:name="leagueId"
             app:type="integer" />
     </fragment>
+
+    <action
+        android:id="@+id/globalShowLeagueDetails"
+        app:destination="@id/leagueDetailsFragment"
+        app:popUpTo="@+id/main"
+        app:popUpToInclusive="true" />
 </navigation>

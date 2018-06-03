@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import app.verath.dotaleaguetracker.MainDirections
 import app.verath.dotaleaguetracker.databinding.FragmentLeagueListBinding
 import app.verath.dotaleaguetracker.util.autoCleared
 import dagger.android.support.DaggerFragment
@@ -36,10 +37,9 @@ class LeagueListFragment : DaggerFragment() {
         viewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(LeagueListViewModel::class.java)
 
-        val adapter = LeagueListAdapter({
-            findNavController().navigate(
-                    LeagueListFragmentDirections.showLeagueDetails(it.leagueId))
-        })
+        val adapter = LeagueListAdapter {
+            findNavController().navigate(MainDirections.globalShowLeagueDetails(it.leagueId))
+        }
         // Connect list adapter to ViewModel
         viewModel.leagues.observe(this, Observer { leagueListResource ->
             adapter.setLeagues(leagueListResource?.data)
