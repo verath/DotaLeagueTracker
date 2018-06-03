@@ -1,4 +1,4 @@
-package app.verath.dotaleaguetracker.leaguelist
+package app.verath.dotaleaguetracker.ui.leaguedetails
 
 import android.arch.lifecycle.ViewModel
 import app.verath.dotaleaguetracker.di.ViewModelKey
@@ -9,13 +9,13 @@ import dagger.multibindings.IntoMap
 
 @Module
 @Suppress("unused")
-interface LeagueListModule {
+interface LeagueDetailsModule {
 
     @ContributesAndroidInjector
-    fun contributeLeaguesListFragment(): LeagueListFragment
+    fun contributeLeaguesDetailsFragment(): LeagueDetailsFragment
 
     @Binds
     @IntoMap
-    @ViewModelKey(LeagueListViewModel::class)
-    fun bindLeagueListViewModel(leagueListViewModel: LeagueListViewModel): ViewModel
+    @ViewModelKey(LeagueDetailsViewModel::class)
+    fun bindLeagueListViewModel(leagueDetailsViewModel: LeagueDetailsViewModel): ViewModel
 }

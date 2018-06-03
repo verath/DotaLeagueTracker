@@ -26,7 +26,7 @@
 
         <fragment
             android:id="@+id/nav_view_league_list"
-            android:name="app.verath.dotaleaguetracker.leaguelist.LeagueListFragment"
+            android:name="app.verath.dotaleaguetracker.ui.leaguelist.LeagueListFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:layout="@layout/fragment_league_list" />

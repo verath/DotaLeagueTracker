@@ -1,4 +1,4 @@
-package app.verath.dotaleaguetracker.home
+package app.verath.dotaleaguetracker.ui.home
 
 
 import android.os.Bundle

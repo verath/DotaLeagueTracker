@@ -1,4 +1,4 @@
-package app.verath.dotaleaguetracker.leaguedetails
+package app.verath.dotaleaguetracker.ui.leaguedetails
 
 
 import android.arch.lifecycle.ViewModelProvider

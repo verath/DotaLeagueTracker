@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="app.verath.dotaleaguetracker.home.HomeFragment"
+        android:name="app.verath.dotaleaguetracker.ui.home.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/leagueDetailsFragment"
-        android:name="app.verath.dotaleaguetracker.leaguedetails.LeagueDetailsFragment"
+        android:name="app.verath.dotaleaguetracker.ui.leaguedetails.LeagueDetailsFragment"
         android:label="LeagueDetailsFragment"
         tools:layout="@layout/fragment_league_details">
         <argument

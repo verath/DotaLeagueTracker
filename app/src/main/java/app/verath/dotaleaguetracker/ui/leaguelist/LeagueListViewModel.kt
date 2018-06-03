@@ -1,4 +1,4 @@
-package app.verath.dotaleaguetracker.leaguelist
+package app.verath.dotaleaguetracker.ui.leaguelist
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData

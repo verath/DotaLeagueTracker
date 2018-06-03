@@ -1,4 +1,4 @@
-package app.verath.dotaleaguetracker.leaguelist
+package app.verath.dotaleaguetracker.ui.leaguelist
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -29,7 +29,6 @@ class LeagueListAdapter(
     fun setLeagues(leagues: List<DotaLeague>?) {
         this.leagues = leagues
     }
-
 }
 
 class LeagueListViewHolder(
