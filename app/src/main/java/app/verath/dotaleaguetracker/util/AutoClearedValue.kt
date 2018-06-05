@@ -18,21 +18,21 @@ package app.verath.dotaleaguetracker.util
 
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
+import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.OnLifecycleEvent
-import android.support.v4.app.Fragment
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
 /**
- * A lazy property that gets cleaned up when the fragment is destroyed.
+ * A lazy property that gets cleaned up when the LifecycleOwner is destroyed.
  *
- * Accessing this variable in a destroyed fragment will throw NPE.
+ * Accessing this variable in a destroyed LifecycleOwner will throw an IllegalStateException.
  */
-class AutoClearedValue<T : Any>(val fragment: Fragment) : ReadWriteProperty<Fragment, T> {
+class AutoClearedValue<T : Any>(lifecycleOwner: LifecycleOwner) : ReadWriteProperty<LifecycleOwner, T> {
     private var _value: T? = null
 
     init {
-        fragment.lifecycle.addObserver(object : LifecycleObserver {
+        lifecycleOwner.lifecycle.addObserver(object : LifecycleObserver {
             @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
             fun onDestroy() {
                 _value = null
@@ -40,18 +40,18 @@ class AutoClearedValue<T : Any>(val fragment: Fragment) : ReadWriteProperty<Frag
         })
     }
 
-    override fun getValue(thisRef: Fragment, property: KProperty<*>): T {
+    override fun getValue(thisRef: LifecycleOwner, property: KProperty<*>): T {
         return _value ?: throw IllegalStateException(
-            "should never call auto-cleared-value get when it might not be available"
+                "should never call auto-cleared-value get when it might not be available"
         )
     }
 
-    override fun setValue(thisRef: Fragment, property: KProperty<*>, value: T) {
+    override fun setValue(thisRef: LifecycleOwner, property: KProperty<*>, value: T) {
         _value = value
     }
 }
 
 /**
- * Creates an [AutoClearedValue] associated with this fragment.
+ * Creates an [AutoClearedValue] associated with this LifecycleObserver.
  */
-fun <T : Any> Fragment.autoCleared() = AutoClearedValue<T>(this)
+fun <T : Any> LifecycleOwner.autoCleared() = AutoClearedValue<T>(this)
